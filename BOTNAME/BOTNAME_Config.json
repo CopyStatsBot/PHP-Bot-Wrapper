@@ -1,0 +1,9 @@
+{
+    "username":       "BOTNAME",
+    "password":       "PASSWORD",
+    "clientsecret":   "SECRET",
+    "clientid":       "SECRET",
+    "PostsProcessed": 0,
+    "CommentsMade":   0,
+    "RequestsMade":   0
+}

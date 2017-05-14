@@ -1,0 +1,47 @@
+#!/usr/bin/php
+<?php
+
+ini_set('memory_limit','16M'); // Increase memory limit
+
+if (isset($argv[1])) { // passed variable from commandline (./RunBot 'BOTNAME')
+    $botName = $argv[1];
+} else {
+    exit("No Bot Name \n");
+}
+
+if (file_exists("$botName/$botName.php")) {
+    include "$botName/$botName.php"; // Dynamically load Bot class
+}
+
+fileCheck($botName); // Run the file check for full use
+
+$redditBotClass = "RedditBot_$botName";
+
+for ($i=1; $i < 100; $i++) {
+    echo("Booting up $botName for the ".ordinal($i)." time \n");
+    
+    // Run the bot!
+    runMainBot($redditBotClass);
+}
+
+function runMainBot($redditBotClass)
+{
+    // Run the bot! - This is in a seperate function to keep the definition seperate
+    // This way $RedditBotGeneric gets discarded. It also means I can expand this later
+    $RedditBotGeneric = New $redditBotClass();
+
+}
+function fileCheck($botName)
+{
+    $root = "$botName/"; // Folder
+    if (!file_exists("$botName/$botName.php")) { // Main class
+        exit("ERROR: File doesn't exist! : $botName/$botName.php");
+    } elseif (!file_exists("$botName/$botName"."_Config.json")) { // Config File
+        exit("ERROR: File doesn't exist! : $botName/$botName"."_Config.json");
+    }
+}
+function ordinal($a)
+{
+    // Adds 'st', 'th', 'rd' to ends of numbers (3 -> 3rd)
+    return $a.substr(date('jS', mktime(0,0,0,1,($a%10==0?9:($a%100>20?$a%10:$a%100)),2000)),-2);
+}
