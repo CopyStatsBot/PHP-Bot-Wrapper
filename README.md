@@ -14,7 +14,7 @@ Once that's all done, add you will need to set up a mysql server, it isn't too d
 
 You will need a sql table to hold your ProcessedPosts. You can make your table with this:
 
-`CREATE TABLE CopyStatsBot_ProcessedPosts (
+`CREATE TABLE ProcessedPosts (
   'post_id' varchar(10) NOT NULL,
   'post_timestamp' timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   'post_author' varchar(64) NOT NULL,
